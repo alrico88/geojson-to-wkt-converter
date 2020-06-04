@@ -51,10 +51,6 @@ export default {
         content:
           'geojson,wkt,well known text,converter,convert to geojson, convert to wkt, draw geojson, draw wkt',
       },
-      {
-        name: 'google-site-verification',
-        content: 'UZOcaXnekxNx3602Y3bTdmQ76izGiFgKdkMnByPC_PM',
-      },
     ],
   },
   components: {
