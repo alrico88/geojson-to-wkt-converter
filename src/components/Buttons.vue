@@ -1,5 +1,5 @@
 <template lang="pug">
-  .col-md-2.px-0
+  .col-md-2.px-0.text-center
     .row
       .col.mb-2
         p.mb-1 Click to convert

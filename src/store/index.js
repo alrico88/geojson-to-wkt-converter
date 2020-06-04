@@ -5,6 +5,7 @@ import {
   convertToWK,
   convertFeatureCollection,
 } from 'wkt-parser-helper';
+import {exampleGeoJSON, exampleWKT} from '../helpers/examples';
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
       message: '',
       from: '',
     },
+    drawnMap: null,
   },
   mutations: {
     changeState(state, {field, value}) {
@@ -74,6 +76,47 @@ export default new Vuex.Store({
       context.commit('setError', {
         from,
         message,
+      });
+    },
+    placeExample(context, element) {
+      const elements = {
+        geojson: JSON.stringify(exampleGeoJSON, null, 2),
+        wkt: exampleWKT,
+      };
+
+      switch (element) {
+        case 'geojson':
+          context.commit('changeState', {
+            field: 'geojson',
+            value: elements[element],
+          });
+          context.commit('changeState', {
+            field: 'wkt',
+            value: '',
+          });
+          break;
+        case 'wkt':
+          context.commit('changeState', {
+            field: 'wkt',
+            value: elements[element],
+          });
+          context.commit('changeState', {
+            field: 'geojson',
+            value: '',
+          });
+          break;
+        default:
+          break;
+      }
+    },
+    drawOnMap(context, element) {
+      const value =
+        element === 'geojson'
+          ? JSON.parse(context.state.geojson)
+          : parseFromWK(context.state.wkt);
+      context.commit('changeState', {
+        field: 'drawnMap',
+        value,
       });
     },
   },

@@ -2,16 +2,36 @@
   .col-md
     form.form
       .form-group
-        label.font-weight-bold {{ title }}
+        ul.list-inline.mb-0
+          li.list-inline-item
+            label.font-weight-bold {{ title }}
+          li.list-inline-item
+            a(href="#", @click.prevent="loadExample") Load example
         textarea.form-control(rows="20", v-model="value", :class="{'is-invalid': error.isError && error.from === property}")
       .form-group
-        button.btn.btn-light(href="#", :disabled="value === ''", v-clipboard:copy="value", v-clipboard:success="notifyClipSuccess", v-clipboard:error="notifyClipError")
-          i.fa.fa-copy
-          |  Copy to clipboard
+        ul.list-inline.mb-0
+          li.list-inline-item
+            button.btn.btn-light(
+              type="button",
+              :disabled="value === ''",
+              v-clipboard:copy="value",
+              v-clipboard:success="notifyClipSuccess",
+              v-clipboard:error="notifyClipError"
+            )
+              i.fa.fa-copy
+              |  Copy to clipboard
+          li.list-inline-item
+            button.btn.btn-light(
+              type="button",
+              :disabled="value === ''",
+              @click.prevent="drawOnMap(property)"
+            )
+              i.fa.fa-map
+              |  Draw on map
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapActions} from 'vuex';
 export default {
   props: {
     title: {
@@ -38,6 +58,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['drawOnMap']),
     notifyClipSuccess() {
       this.$notify({
         group: 'clipboard',
@@ -53,6 +74,9 @@ export default {
         text: `Error copying to clipboard ${err}`,
         type: 'danger',
       });
+    },
+    loadExample() {
+      this.$store.dispatch('placeExample', this.property);
     },
   },
 };
