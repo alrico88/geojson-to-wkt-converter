@@ -7,18 +7,14 @@
         .row
           .col
             .alert.alert-danger.border-danger.mb-1 {{ error.message }}
-      .row
-        .col
-          .row
-            .col
-              .container
-                .row.align-items-center
-                  input-text(title="GeoJSON", property="geojson")
-                  buttons
-                  input-text(title="Well-Known-Text", property="wkt")
-                .row
-                  .col
-                    map-view.border
+      .container.mb-2
+        .row.align-items-center
+          input-text(title="GeoJSON", property="geojson")
+          buttons
+          input-text(title="Well-Known-Text", property="wkt")
+        .row
+          .col
+            map-view.border
     footer.mt-auto.py-3.bg-white.text-center
       .container
         .row
