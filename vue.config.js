@@ -69,4 +69,9 @@ module.exports = {
       },
     ],
   },
+  pluginOptions: {
+    sitemap: {
+      urls: ['https://geojson-to-wkt-converter.onrender.com/'],
+    },
+  },
 };
