@@ -6,6 +6,9 @@ module.exports = {
     msTileColor: '#737E96',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'white',
+    workboxOptions: {
+      skipWaiting: true,
+    },
     icons: [
       {
         src: './img/icons/android-chrome-192x192.png',
