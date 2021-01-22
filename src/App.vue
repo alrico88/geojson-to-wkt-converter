@@ -12,9 +12,18 @@
           input-text(title="GeoJSON", property="geojson")
           buttons
           input-text(title="Well-Known-Text", property="wkt")
+      div(:class="mapParentClass")
         .row
           .col
-            map-view.border
+            .card.border
+              .card-header
+                .d-flex.align-items-center
+                  .flex-grow-1
+                    style-toolbar(v-model="mapStyle")
+                  div
+                    b-button(@click="toggleMapSize", size="sm") Toggle map size
+              .card-body.p-0
+                map-view(:map-style="mapStyle", :height="mapHeight", ref="map")
     footer.mt-auto.py-3.bg-white.text-center
       .container
         .row
@@ -31,6 +40,8 @@ import Buttons from './components/Buttons.vue';
 import Navbar from './components/Navbar.vue';
 import {mapState} from 'vuex';
 import MapView from './components/Map.vue';
+import StyleToolbar from '@/components/StyleToolbar.vue';
+import {BButton} from 'bootstrap-vue';
 
 export default {
   name: 'App',
@@ -54,13 +65,35 @@ export default {
     ],
   },
   components: {
+    StyleToolbar,
     InputText,
     Buttons,
     Navbar,
     MapView,
+    BButton,
+  },
+  data() {
+    return {
+      fullMap: false,
+      mapStyle: 'color',
+    };
   },
   computed: {
     ...mapState(['error']),
+    mapParentClass() {
+      return this.fullMap ? 'container-fluid' : 'container';
+    },
+    mapHeight() {
+      return this.fullMap ? 800 : 400;
+    },
+  },
+  methods: {
+    toggleMapSize() {
+      this.fullMap = !this.fullMap;
+      this.$nextTick(() => {
+        this.$refs.map.reflowMap();
+      });
+    },
   },
 };
 </script>
