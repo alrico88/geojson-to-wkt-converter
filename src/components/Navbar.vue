@@ -4,10 +4,5 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
-export default {
-  computed: {
-    ...mapState(['error']),
-  },
-};
+export default {};
 </script>

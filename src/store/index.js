@@ -19,6 +19,25 @@ export default new Vuex.Store({
       from: '',
     },
     drawnMap: null,
+    drawnSource: null,
+  },
+  getters: {
+    getDrawnSource({drawnSource}) {
+      let toReturn;
+
+      switch (drawnSource) {
+        case 'geojson':
+          toReturn = 'GeoJSON';
+          break;
+        case 'wkt':
+          toReturn = 'WKT';
+          break;
+        default:
+          toReturn = 'Nothing';
+      }
+
+      return toReturn;
+    },
   },
   mutations: {
     changeState(state, {field, value}) {
@@ -117,6 +136,10 @@ export default new Vuex.Store({
       context.commit('changeState', {
         field: 'drawnMap',
         value,
+      });
+      context.commit('changeState', {
+        field: 'drawnSource',
+        value: element,
       });
     },
   },

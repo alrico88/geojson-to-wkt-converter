@@ -1,0 +1,13 @@
+$font-family-base: "Fira Sans", Helvetica, Arial, sans-serif;
+$body-color: #2c3e50;
+$body-bg: #e5e9f2;
+$font-size-base: 14;
+
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+@import url("https://fonts.xz.style/serve/fira-sans.css");
+
+label {
+  font-size: 1.2rem;
+}

@@ -1,38 +1,52 @@
 <template lang="pug">
   .col-md
-    form.form
-      .form-group
+    b-form
+      b-form-group
         ul.list-inline.mb-0
           li.list-inline-item
             label.font-weight-bold {{ title }}
           li.list-inline-item
             a(href="#", @click.prevent="loadExample") Load example
-        textarea.form-control(rows="20", v-model="value", :class="{'is-invalid': error.isError && error.from === property}")
-      .form-group
-        ul.list-inline.mb-0
-          li.list-inline-item
-            button.btn.btn-light(
-              type="button",
+        b-form-textarea(rows="20", v-model="value", :state="validationState")
+      b-form-group
+        .d-flex
+          .flex-grow-1.pr-2
+            b-button(
+              variant="light",
               :disabled="value === ''",
               v-clipboard:copy="value",
               v-clipboard:success="notifyClipSuccess",
-              v-clipboard:error="notifyClipError"
+              v-clipboard:error="notifyClipError",
+              block
             )
-              i.fa.fa-copy
+              b-icon-clipboard
               |  Copy to clipboard
-          li.list-inline-item
-            button.btn.btn-light(
-              type="button",
+          .flex-grow-1.pl-2
+            b-button(
+              variant="light",
               :disabled="value === ''",
-              @click.prevent="drawOnMap(property)"
+              @click="drawOnMap(property)",
+              block
             )
-              i.fa.fa-map
+              b-icon-map
               |  Draw on map
 </template>
 
 <script>
 import {mapState, mapActions} from 'vuex';
+import {BButton, BForm, BFormGroup, BFormTextarea, BIconMap, BIconClipboard} from 'bootstrap-vue';
+import ToastMixin, {toastVariants} from '@/mixins/ToastMixin';
+
 export default {
+  components: {
+    BButton,
+    BForm,
+    BFormGroup,
+    BFormTextarea,
+    BIconMap,
+    BIconClipboard,
+  },
+  mixins: [ToastMixin],
   props: {
     title: {
       type: String,
@@ -56,24 +70,17 @@ export default {
         });
       },
     },
+    validationState() {
+      return this.error.isError && this.error.from === this.property ? false : null;
+    },
   },
   methods: {
     ...mapActions(['drawOnMap']),
     notifyClipSuccess() {
-      this.$notify({
-        group: 'clipboard',
-        title: 'Success',
-        text: 'Copied to clipboard',
-        type: 'success',
-      });
+      this.showToast('Success', 'Copied to clipboard', toastVariants.SUCCESS);
     },
     notifyClipError(err) {
-      this.$notify({
-        group: 'clipboard',
-        title: 'Error',
-        text: `Error copying to clipboard ${err}`,
-        type: 'danger',
-      });
+      this.showToast('Error', `Error copying to clipboard ${err}`, toastVariants.ERROR);
     },
     loadExample() {
       this.$store.dispatch('placeExample', this.property);

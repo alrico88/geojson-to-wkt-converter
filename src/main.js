@@ -1,20 +1,19 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Notifications from 'vue-notification';
 import VueClipboard from 'vue-clipboard2';
 import VueMeta from 'vue-meta';
+import {ToastPlugin} from 'bootstrap-vue';
 
 import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'leaflet/dist/leaflet.css';
+import './assets/main.scss';
 
 import store from './store';
 
-Vue.use(Notifications);
+Vue.use(ToastPlugin);
 Vue.use(VueClipboard);
 Vue.use(VueMeta);
 

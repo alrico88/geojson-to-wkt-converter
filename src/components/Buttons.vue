@@ -5,21 +5,28 @@
         p.mb-1 Click to convert
     .row
       .col.mb-2
-        button.btn.btn-primary(@click.prevent="convertToWkt", :disabled="geojson === ''")
+        b-button(@click="convertToWkt", :disabled="geojson === ''")
           | GeoJSON
-          i.fa.fa-arrow-right.mx-1
+          b-icon-arrow-right.mx-1
           | WKT
       .w-100
       .col
-        button.btn.btn-primary(@click.prevent="convertToGeoJSON", :disabled="wkt === ''")
+        b-button(@click="convertToGeoJSON", :disabled="wkt === ''")
           | GeoJSON
-          i.fa.fa-arrow-left.mx-1
+          b-icon-arrow-left.mx-1
           | WKT
 </template>
 
 <script>
 import {mapState} from 'vuex';
+import {BButton, BIconArrowLeft, BIconArrowRight} from 'bootstrap-vue';
+
 export default {
+  components: {
+    BButton,
+    BIconArrowLeft,
+    BIconArrowRight,
+  },
   computed: {
     ...mapState(['geojson', 'wkt']),
   },

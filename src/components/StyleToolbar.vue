@@ -1,11 +1,11 @@
 <template lang="pug">
-  b-button-group(size="sm")
-    b-button(
-      v-for="style of availableStyles",
-      :key="style.value",
-      :class="{active: selectedStyle === style.value}",
-      @click="changeStyle(style.value)"
-    ) {{style.name}}
+b-button-group(size="sm")
+  b-button(
+    v-for="style of availableStyles",
+    :key="style.value",
+    :class="{ active: selectedStyle === style.value }",
+    @click="changeStyle(style.value)"
+  ) {{ style.name }}
 </template>
 
 <script>
@@ -60,5 +60,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
