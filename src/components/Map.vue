@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {LMap, LTileLayer, LGeoJson} from 'vue2-leaflet';
+import {LGeoJson, LMap, LTileLayer} from 'vue2-leaflet';
 import {mapState} from 'vuex';
 import bbox from '@turf/bbox';
 
@@ -52,11 +52,11 @@ export default {
     bounds() {
       if (this.drawnMap) {
         const [minX, minY, maxX, maxY] = bbox(this.drawnMap);
-        const bounds = [
+
+        return [
           [minY, minX],
           [maxY, maxX],
         ];
-        return bounds;
       } else {
         return null;
       }
