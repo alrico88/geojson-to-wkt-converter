@@ -13,6 +13,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.4",
+    "fracturedjsonjs": "^2.0.0",
     "jquery": "^3.5.1",
     "leaflet": "^1.6.0",
     "popper.js": "^1.16.1",

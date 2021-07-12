@@ -6,6 +6,9 @@ import {
   convertFeatureCollection,
 } from 'wkt-parser-helper';
 import {exampleGeoJSON, exampleWKT} from '../helpers/examples';
+import {Formatter} from 'fracturedjsonjs';
+
+const jsonFormatter = new Formatter();
 
 Vue.use(Vuex);
 
@@ -80,7 +83,7 @@ export default new Vuex.Store({
         const asGeoJSON = parseFromWK(wkt, true);
         context.commit('changeState', {
           field: 'geojson',
-          value: JSON.stringify(asGeoJSON, null, 2),
+          value: jsonFormatter.serialize(asGeoJSON),
         });
       } catch (err) {
         context.dispatch('triggerError', {
@@ -99,7 +102,7 @@ export default new Vuex.Store({
     },
     placeExample(context, element) {
       const elements = {
-        geojson: JSON.stringify(exampleGeoJSON, null, 2),
+        geojson: jsonFormatter.serialize(exampleGeoJSON),
         wkt: exampleWKT,
       };
 
