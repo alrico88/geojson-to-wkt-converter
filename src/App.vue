@@ -30,9 +30,7 @@
         .row
           .col
             .text-muted Made by #[a(href="https://alrico.es" target="_blank" rel="noopener") Alberto Rico]. Source code available at
-              a.ml-2(href="https://github.com/alrico88/geojson-to-wkt-converter", target="_blank")
-                i.fab.fa-github
-                |  Github
+              a.ml-2(href="https://github.com/alrico88/geojson-to-wkt-converter", target="_blank") #[b-icon-github] Github
 </template>
 
 <script>
@@ -42,7 +40,7 @@ import Navbar from './components/Navbar.vue';
 import {mapState, mapGetters} from 'vuex';
 import MapView from './components/Map.vue';
 import StyleToolbar from '@/components/StyleToolbar.vue';
-import {BButton, BAlert} from 'bootstrap-vue';
+import {BButton, BAlert, BIconGithub} from 'bootstrap-vue';
 
 export default {
   name: 'App',
@@ -73,6 +71,7 @@ export default {
     MapView,
     BButton,
     BAlert,
+    BIconGithub,
   },
   data() {
     return {
