@@ -1,11 +1,18 @@
 {
   "name": "geojson-to-wkt",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alrico88/geojson-to-wkt-converter"
+  },
+  "author": {
+    "name": "Alberto Rico"
   },
   "dependencies": {
     "@vue-leaflet/vue-leaflet": "^0.6.1",
