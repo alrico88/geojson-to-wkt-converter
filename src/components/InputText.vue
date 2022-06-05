@@ -1,90 +1,70 @@
 <template lang="pug">
-  .col-md
-    b-form
-      b-form-group
-        ul.list-inline.mb-0
-          li.list-inline-item
-            label.font-weight-bold {{ title }}
-          li.list-inline-item
-            a(href="#", @click.prevent="loadExample") Load example
-        b-form-textarea(rows="20", v-model="value", :state="validationState")
-      b-form-group
-        .d-flex
-          .flex-grow-1.pr-2
-            b-button(
-              variant="light",
-              :disabled="value === ''",
-              v-clipboard:copy="value",
-              v-clipboard:success="notifyClipSuccess",
-              v-clipboard:error="notifyClipError",
-              block
-            )
-              b-icon-clipboard
-              |  Copy to clipboard
-          .flex-grow-1.pl-2
-            b-button(
-              variant="light",
-              :disabled="value === ''",
-              @click="drawOnMap(property)",
-              block
-            )
-              b-icon-map
-              |  Draw on map
+.col-md
+  .row
+    .col
+      .form-group
+        .d-flex.justify-content-between.gap-2.mb-2.align-items-center
+          .font-weight-bold {{ title }}
+          button.btn.btn-link.p-0(@click="loadExample") Load example
+        textarea.form-control.bg-white(rows="20", v-model="value", :class="inputClass")
+  .row
+    .col
+      .hstack.gap-2
+        button.btn.btn-light.w-100(
+          @click="copy(value)"
+          :disabled="value === ''"
+        )
+          template(v-if="copied")
+            div #[icon-check] Copied
+          template(v-else)
+            div #[icon-clipboard] Copy to clipboard
+        button.btn.btn-light.w-100(
+          :disabled="value === ''",
+          @click="store.drawOnMap(property)",
+        ) #[icon-map] Draw on map
 </template>
 
-<script>
-import {mapState, mapActions} from 'vuex';
-import {BButton, BForm, BFormGroup, BFormTextarea, BIconMap, BIconClipboard} from 'bootstrap-vue';
-import ToastMixin, {toastVariants} from '@/mixins/ToastMixin';
+<script setup>
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
+import { useClipboard } from '@vueuse/core';
+import useMainStore from '../store/useMainStore';
+import IconClipboard from '~icons/bi/clipboard';
+import IconMap from '~icons/bi/map';
+import IconCheck from '~icons/bi/check';
 
-export default {
-  components: {
-    BButton,
-    BForm,
-    BFormGroup,
-    BFormTextarea,
-    BIconMap,
-    BIconClipboard,
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
   },
-  mixins: [ToastMixin],
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    property: {
-      type: String,
-      required: true,
-    },
+  property: {
+    type: String,
+    required: true,
   },
-  computed: {
-    ...mapState(['error']),
-    value: {
-      get() {
-        return this.$store.state[this.property];
-      },
-      set(value) {
-        this.$store.commit('changeState', {
-          field: this.property,
-          value,
-        });
-      },
-    },
-    validationState() {
-      return this.error.isError && this.error.from === this.property ? false : null;
-    },
+});
+
+const store = useMainStore();
+const { error } = storeToRefs(store);
+
+const value = computed({
+  get() {
+    return store[props.property];
   },
-  methods: {
-    ...mapActions(['drawOnMap']),
-    notifyClipSuccess() {
-      this.showToast('Success', 'Copied to clipboard', toastVariants.SUCCESS);
-    },
-    notifyClipError(err) {
-      this.showToast('Error', `Error copying to clipboard ${err}`, toastVariants.ERROR);
-    },
-    loadExample() {
-      this.$store.dispatch('placeExample', this.property);
-    },
+  set(val) {
+    store.changeProp(props.property, val);
   },
-};
+});
+
+function loadExample() {
+  store.placeExample(props.property);
+}
+
+const { copy, copied } = useClipboard();
+
+const isInvalid = computed(() => error.value.isError && error.value.from === props.property);
+
+const inputClass = computed(() => ({
+  'is-invalid': isInvalid.value,
+}));
 </script>

@@ -3,51 +3,34 @@
   "version": "0.4.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "sitemap": "vue-cli-service sitemap"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
-    "@turf/bbox": "^6.0.1",
-    "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.6.4",
-    "fracturedjsonjs": "^2.0.0",
-    "jquery": "^3.5.1",
-    "leaflet": "^1.6.0",
-    "popper.js": "^1.16.1",
-    "register-service-worker": "^1.7.1",
-    "vue": "^2.6.11",
-    "vue-clipboard2": "^0.3.1",
-    "vue-meta": "^2.3.4",
-    "vue2-leaflet": "^2.5.2",
-    "vuex": "^3.1.3",
-    "wkt-parser-helper": "^2.0.0"
+    "@vue-leaflet/vue-leaflet": "^0.6.1",
+    "@vueuse/core": "^8.6.0",
+    "bbox-helper-functions": "^3.2.4",
+    "bootstrap": "^5.1.3",
+    "fracturedjsonjs": "^2.2.1",
+    "leaflet": "^1.8.0",
+    "pinia": "^2.0.14",
+    "vue": "^3.2.36",
+    "wkt-parser-helper": "^4.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-plugin-pwa": "~4.3.0",
-    "@vue/cli-plugin-vuex": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^5.4",
-    "eslint-plugin-vue": "^6.2.2",
-    "lint-staged": "^9.5.0",
-    "sass": "^1.26.3",
-    "sass-loader": "^8.0.2",
-    "vue-cli-plugin-pug": "~1.0.7",
-    "vue-cli-plugin-sitemap": "~2.1.1",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
+    "@iconify/json": "^2.1.56",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/compiler-sfc": "^3.2.36",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "^9.1.0",
+    "pug": "^3.0.2",
+    "sass": "^1.52.2",
+    "unplugin-icons": "^0.14.3",
+    "vite": "^2.9.9",
+    "vite-plugin-fonts": "^0.4.0",
+    "vite-plugin-pwa": "^0.12.0"
   }
 }

@@ -1,60 +1,49 @@
 <template lang="pug">
-b-button-group(size="sm")
-  b-button(
+.btn-group.btn-group-sm(role="group")
+  button.btn.btn-secondary(
     v-for="style of availableStyles",
     :key="style.value",
     :class="{ active: selectedStyle === style.value }",
     @click="changeStyle(style.value)"
-  ) {{ style.name }}
+  ) #[component(:is="style.icon")] {{ style.name }}
 </template>
 
-<script>
-import {BButton, BButtonGroup} from 'bootstrap-vue';
+<script setup>
+import { useVModel } from '@vueuse/core';
+import IconSun from '~icons/bi/sun';
+import IconMoon from '~icons/bi/moon';
+import IconStyle from '~icons/bi/palette';
 
-export default {
-  name: 'StyleToolbar',
-  components: {
-    BButton,
-    BButtonGroup,
+const props = defineProps({
+  style: {
+    type: String,
+    required: true,
   },
-  props: {
-    value: {
-      type: String,
-      required: true,
-    },
+});
+
+const emit = defineEmits(['update:style']);
+
+const availableStyles = [
+  {
+    name: 'Coloured',
+    value: 'color',
+    icon: IconStyle,
   },
-  data() {
-    return {
-      availableStyles: [
-        {
-          name: 'Coloured',
-          value: 'color',
-        },
-        {
-          name: 'Light',
-          value: 'light',
-        },
-        {
-          name: 'Dark',
-          value: 'dark',
-        },
-      ],
-    };
+  {
+    name: 'Light',
+    value: 'light',
+    icon: IconSun,
   },
-  computed: {
-    selectedStyle: {
-      get() {
-        return this.value;
-      },
-      set(value) {
-        this.$emit('input', value);
-      },
-    },
+  {
+    name: 'Dark',
+    value: 'dark',
+    icon: IconMoon,
   },
-  methods: {
-    changeStyle(style) {
-      this.selectedStyle = style;
-    },
-  },
-};
+];
+
+const selectedStyle = useVModel(props, 'style', emit);
+
+function changeStyle(style) {
+  selectedStyle.value = style;
+}
 </script>

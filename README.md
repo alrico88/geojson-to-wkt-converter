@@ -1,24 +1,20 @@
 # geojson-to-wkt
 
+PWA made with Vue 3, Vite, Pinia and Leaflet to convert between GeoJSON and WKT formats.
+
+![Preview](https://i.imgur.com/OuTbA5Z.png)
+
 ## Project setup
 ```
-yarn install
+pnpm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+pnpm dev
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+pnpm build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
