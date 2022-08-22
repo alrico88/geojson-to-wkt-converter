@@ -3,10 +3,10 @@
   .row
     .col
       .form-group
-        .d-flex.justify-content-between.gap-2.mb-2.align-items-center
-          .font-weight-bold {{ title }}
+        .hstack.justify-content-between.gap-2.mb-2.align-items-center
+          .input-title {{ title }}
           button.btn.btn-link.p-0(@click="loadExample") Load example
-        textarea.form-control.bg-white(rows="20", v-model="value", :class="inputClass")
+        textarea.form-control.bg-white.border-1(rows="15", v-model="value", :class="inputClass")
   .row
     .col
       .hstack.gap-2
@@ -68,3 +68,10 @@ const inputClass = computed(() => ({
   'is-invalid': isInvalid.value,
 }));
 </script>
+
+<style scoped lang="scss">
+.input-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+</style>
