@@ -2,7 +2,7 @@
 .d-flex.vh-100.flex-column
   main.flex-shrink-0
     nav.navbar.navbar-light.bg-light.justify-content-center.mb-3
-      a.navbar-brand GeoJSON to WKT
+      h1.mb-0 GeoJSON to WKT
     .container.pb-2(v-show="error.isError")
       .row
         .col
@@ -15,7 +15,7 @@
     div.mb-4(:class="mapParentClass")
       .row
         .col
-          .card.border
+          .card.border-1
             .card-header
                .d-flex.justify-content-between.align-items-center
                 .hstack.gap-2
