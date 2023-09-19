@@ -1,9 +1,12 @@
 $font-family-base: "Fira Sans", Helvetica, Arial, sans-serif;
 $body-color: #2c3e50;
-$body-bg: #e5e9f2;
 $font-size-base: 14;
 
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
+
+body {
+  background-color: #e5e9f2;
+}
 
 label {
   font-size: 1.2rem;
@@ -15,4 +18,9 @@ label {
   label {
     margin-bottom: 10px;
   }
+}
+
+.icon {
+  vertical-align: middle; 
+  transform: translateY(-5%);
 }

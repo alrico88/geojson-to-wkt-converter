@@ -1,18 +1,14 @@
+/* eslint-env node */
+require("@rushstack/eslint-patch/modern-module-resolution");
+
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    'vue/setup-compiler-macros': true,
-  },
-  extends: ['plugin:vue/vue3-recommended', 'airbnb-base'],
-  parserOptions: {
-    ecmaVersion: 13,
-    sourceType: 'module',
-  },
-  plugins: ['vue'],
+  extends: [
+    "plugin:vue/vue3-essential",
+    "@vue/eslint-config-typescript/recommended",
+    "@vue/eslint-config-prettier",
+  ],
   rules: {
-    'import/prefer-default-export': 'off',
-    'max-len': 'off',
-    'no-unused-vars': 'off',
+    "@typescript-eslint/no-unused-vars": "off",
+    "vue/multi-word-component-names": "off",
   },
 };

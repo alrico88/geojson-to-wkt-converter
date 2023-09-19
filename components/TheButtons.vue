@@ -9,18 +9,15 @@
         button.btn.btn-secondary(
           @click="store.convertGeoJSONToWkt",
           :disabled="geojson === ''"
-        ) GeoJSON #[icon-arrow-right] WKT
+        ) GeoJSON #[icon(name="bi:arrow-right")] WKT
         button.btn.btn-secondary(
           @click="store.convertWktToGeoJSON",
           :disabled="wkt === ''"
-        ) GeoJSON #[icon-arrow-left] WKT
+        ) GeoJSON #[icon(name="bi:arrow-left")] WKT
 </template>
 
-<script setup>
-import { storeToRefs } from 'pinia';
-import useMainStore from '../store/useMainStore';
-import IconArrowLeft from '~icons/bi/arrow-left';
-import IconArrowRight from '~icons/bi/arrow-right';
+<script setup lang="ts">
+import useMainStore from "~/store/useMainStore";
 
 const store = useMainStore();
 const { geojson, wkt } = storeToRefs(store);
