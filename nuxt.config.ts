@@ -43,6 +43,7 @@ export default defineNuxtConfig({
     ],
     "@vite-pwa/nuxt",
     "nuxt3-leaflet",
+    "@nuxtjs/google-fonts",
   ],
   pwa: {
     registerType: "prompt",
@@ -85,6 +86,11 @@ export default defineNuxtConfig({
       host: "https://stats.alrico.es",
       id: "96f162ec-d233-4e7e-ae2c-05d8a1b4bd74",
       ignoreLocalhost: true,
+    },
+  },
+  googleFonts: {
+    families: {
+      "Fira Sans": [400, 600, 800],
     },
   },
 });
