@@ -1,6 +1,5 @@
 import { parseFromWK, convertToWK } from "wkt-parser-helper";
 import { Formatter } from "fracturedjsonjs";
-import { exampleGeoJSON, exampleWKT } from "../helpers/examples";
 
 const jsonFormatter = new Formatter();
 
