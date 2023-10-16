@@ -2,16 +2,17 @@
 .col-md-5
   .row
     .col
-      .form-group
+      fieldset
         .hstack.justify-content-between.gap-2.mb-2.align-items-center
-          label.input-title.mb-0(:for="inputId") {{ title }}
+          label.input-title.mb-0(:for="inputId", :class="inputClass") {{ title }}
           button.btn.btn-link.p-0(@click="() => emit('load-example')") Load example
-        textarea.form-control.bg-white.border-1(
-          :id="inputId"
-          rows="15"
-          v-model="value"
-          :class="inputClass"
-        )
+        .input-style.border.border-1.mb-2
+          codemirror(
+            :id="inputId"
+            :style="{height: '300px'}"
+            v-model="value"
+            :extensions="extensions"
+          )
   .row
     .col
       .hstack.gap-2
@@ -34,6 +35,9 @@
 <script setup lang="ts">
 import useMainStore from "~/store/useMainStore";
 import { saveAs } from "file-saver";
+import { Codemirror } from "vue-codemirror";
+import { json } from "@codemirror/lang-json";
+import { EditorView } from "codemirror";
 
 const props = defineProps<{
   title: string;
@@ -57,8 +61,18 @@ const isInvalid = computed(
   () => error.value.isError && error.value.from === props.property,
 );
 
+const extensions = computed(() => {
+  const exts = [EditorView.lineWrapping];
+
+  if (props.property === "geojson") {
+    exts.push(json());
+  }
+
+  return exts;
+});
+
 const inputClass = computed(() => ({
-  "is-invalid": isInvalid.value,
+  "text-danger": isInvalid.value,
 }));
 
 function download() {
@@ -77,5 +91,9 @@ const inputId = computed(() => `${props.property}_input`);
 .input-title {
   font-weight: bold;
   font-size: 1.3rem;
+}
+
+.input-style {
+  height: 300px;
 }
 </style>

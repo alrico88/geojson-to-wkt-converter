@@ -17,16 +17,18 @@
     "name": "Alberto Rico"
   },
   "dependencies": {
+    "@codemirror/lang-json": "^6.0.1",
     "@pinia/nuxt": "^0.5.1",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vueuse/core": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
     "bbox-helper-functions": "^3.3.0",
     "bootstrap": "^5.3.2",
+    "codemirror": "^6.0.1",
     "file-saver": "^2.0.5",
     "fracturedjsonjs": "^3.1.0",
     "leaflet": "^1.9.4",
-    "nuxt-umami": "^2.5.4",
+    "vue-codemirror": "^6.1.1",
     "wkt-parser-helper": "^4.1.0"
   },
   "devDependencies": {

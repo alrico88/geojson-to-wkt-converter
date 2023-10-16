@@ -1,5 +1,4 @@
 export default defineNuxtConfig({
-  extends: ["nuxt-umami"],
   app: {
     head: {
       title: "GeoJSON to WKT online converter",
@@ -29,6 +28,14 @@ export default defineNuxtConfig({
       htmlAttrs: {
         "data-bs-theme": "light",
       },
+      script: [
+        {
+          src: "https://stats.alrico.es/umami.js",
+          "data-website-id": "96f162ec-d233-4e7e-ae2c-05d8a1b4bd74",
+          async: true,
+          defer: true,
+        },
+      ],
     },
   },
   css: ["@/assets/main.scss"],
@@ -82,11 +89,6 @@ export default defineNuxtConfig({
   },
   appConfig: {
     buildDate: new Date().toISOString(),
-    umami: {
-      host: "https://stats.alrico.es",
-      id: "96f162ec-d233-4e7e-ae2c-05d8a1b4bd74",
-      ignoreLocalhost: true,
-    },
   },
   googleFonts: {
     families: {
