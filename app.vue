@@ -1,16 +1,9 @@
 <template lang="pug">
 .d-flex.vh-100.flex-column
   main.flex-shrink-0
-    nav.navbar.navbar-light.bg-light.justify-content-center.mb-3
-      h1.mb-0 GeoJSON to WKT
-    .container.mb-2(v-show="$pwa.needRefresh")
-      .row
-        .col
-          .alert.alert-info.mb-0
-            .hstack.gap-2.justify-content-between.flex-wrap 
-              div New version available
-              div
-                button.btn.btn-primary(@click="$pwa.updateServiceWorker()") #[icon(name="bi:repeat")] Click to update
+    nav.navbar.navbar-light.justify-content-center.py-4
+      h1.mb-0.fw-bold GeoJSON to WKT
+    update-notification
     .container.mb-2(v-show="error.isError")
       .row
         .col
@@ -43,7 +36,7 @@
                   button.btn.btn-secondary.btn-sm(@click="toggleMapSize") #[icon(name="bi:arrows-expand")] Toggle map size
             .card-body.p-0
               the-map(:map-style="mapStyle", :height="mapHeight", ref="mapRef")
-  footer.mt-auto.py-3.bg-white.text-center
+  footer.mt-auto.py-3.text-center
     the-author
 </template>
 
@@ -63,6 +56,7 @@ const mapParentClass = computed(() =>
 );
 const mapHeight = computed(() => (fullMap.value ? 800 : 400));
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapRef = ref<any>(null);
 
 function toggleMapSize() {
@@ -92,13 +86,12 @@ function loadWKTExample() {
     geojson: "",
   });
 }
-
-const { $pwa } = useNuxtApp();
-
-watch(
-  () => $pwa.offlineReady,
-  () => {
-    console.log("ready to work offline");
-  },
-);
 </script>
+
+<style lang="scss" scoped>
+footer {
+  background-color: var(--iris-1);
+  border-top: 2px solid var(--iris-6);
+  color: var(--iris-11);
+}
+</style>
