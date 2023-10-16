@@ -9,11 +9,11 @@
         button.btn.btn-secondary(
           @click="store.convertGeoJSONToWkt",
           :disabled="geojson === ''"
-        ) GeoJSON #[icon(name="bi:arrow-right")] WKT
+        ) GeoJSON to WKT
         button.btn.btn-secondary(
           @click="store.convertWktToGeoJSON",
           :disabled="wkt === ''"
-        ) GeoJSON #[icon(name="bi:arrow-left")] WKT
+        ) WKT to GeoJSON
 </template>
 
 <script setup lang="ts">
