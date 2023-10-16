@@ -3,8 +3,8 @@ div(:style="cssStyle")
   l-map.w-100(
     :zoom-animation="true",
     :options="mapOptions",
-    :center="[40.416241, -3.704281]",
-    :zoom="5",
+    :center="[0, 0]",
+    :zoom="2",
     ref="mapRef"
   )
     l-tile-layer(:url='tileURL', :attribution="tileAttribution")
@@ -50,6 +50,7 @@ const bounds = computed(() => {
   return null;
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapRef = ref<any>(null);
 
 watch(bounds, (val) => {

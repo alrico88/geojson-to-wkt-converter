@@ -4,9 +4,14 @@
     .col
       .form-group
         .hstack.justify-content-between.gap-2.mb-2.align-items-center
-          .input-title {{ title }}
+          label.input-title.mb-0(:for="inputId") {{ title }}
           button.btn.btn-link.p-0(@click="() => emit('load-example')") Load example
-        textarea.form-control.bg-white.border-1(rows="15", v-model="value", :class="inputClass")
+        textarea.form-control.bg-white.border-1(
+          :id="inputId"
+          rows="15"
+          v-model="value"
+          :class="inputClass"
+        )
   .row
     .col
       .hstack.gap-2
@@ -64,6 +69,8 @@ function download() {
     `converted_${new Date().toISOString()}.${fileFormat}`,
   );
 }
+
+const inputId = computed(() => `${props.property}_input`);
 </script>
 
 <style scoped lang="scss">

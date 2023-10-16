@@ -45,7 +45,7 @@ export default defineStore("mainStore", () => {
 
       wkt.value = convertToWK(parsed);
     } catch (err) {
-      triggerError("geojson", JSON.stringify(err));
+      triggerError("geojson", (err as Error).message);
     }
   }
 
