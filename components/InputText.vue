@@ -6,7 +6,7 @@
         .hstack.justify-content-between.gap-2.mb-2.align-items-center
           label.input-title.mb-0(:for="inputId", :class="inputClass") {{ title }}
           button.btn.btn-link.p-0(@click="() => emit('load-example')") Load example
-        .input-style.border.border-1.mb-2
+        .input-style.border.border-1.mb-2.bg-white
           codemirror(
             :id="inputId"
             :style="{height: '300px'}"
