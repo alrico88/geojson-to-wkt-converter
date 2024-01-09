@@ -1,18 +1,15 @@
 <template lang="pug">
-.btn-group.btn-group-sm(role="group")
-  button.btn.btn-secondary(
+b-button-group(size="sm")
+  b-button(
     v-for="style of availableStyles",
+    variant="secondary",
     :key="style.value",
-    :class="{ active: selectedStyle === style.value }",
+    :active="selectedStyle === style.value",
     @click="changeStyle(style.value)"
   ) #[icon(:name="style.icon")] {{ style.name }}
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  style: string;
-}>();
-
 const availableStyles = [
   {
     name: "Coloured",
@@ -31,7 +28,7 @@ const availableStyles = [
   },
 ];
 
-const selectedStyle = useVModel(props, "style");
+const selectedStyle = defineModel<string>("style");
 
 function changeStyle(style: string) {
   selectedStyle.value = style;

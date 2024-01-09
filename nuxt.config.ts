@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "nuxt3-leaflet",
     "@nuxtjs/google-fonts",
+    "@bootstrap-vue-next/nuxt",
   ],
   pwa: {
     registerType: "prompt",
