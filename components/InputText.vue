@@ -5,44 +5,48 @@
       fieldset
         .hstack.justify-content-between.gap-2.mb-2.align-items-center
           label.input-title.mb-0(:for="inputId", :class="inputClass") {{ title }}
-          button.btn.btn-link.p-0(@click="() => emit('load-example')") Load example
+          b-button.p-0(variant="link", @click="() => emit('load-example')") Load example
         .input-style.border.border-1.mb-2.bg-white
           codemirror(
-            :id="inputId"
-            :style="{height: '300px'}"
-            v-model="value"
+            :id="inputId",
+            :style="{ height: '300px' }",
+            v-model="value",
             :extensions="extensions"
           )
   .row
     .col
       .hstack.gap-2
-        button.btn.btn-light.w-100.text-truncate(
-          @click="copy(value)"
+        b-button.w-100.text-truncate(
+          variant="light",
+          @click="copy(value)",
           :disabled="btnDisabled"
         )
           template(v-if="copied") #[icon(name="bi:check")] Copied
           template(v-else) #[icon(name="bi:clipboard")] Copy to clipboard
-        button.btn.btn-light.w-100.text-truncate(
+        b-button.w-100.text-truncate(
+          variant="light",
           :disabled="btnDisabled",
           @click="download"
         ) #[icon(name="bi:download")] Save to file
-        button.btn.btn-light.w-100.text-truncate(
+        b-button.w-100.text-truncate(
+          variant="light",
           :disabled="btnDisabled",
-          @click="store.drawOnMap(property)",
+          @click="store.drawOnMap(property)"
         ) #[icon(name="bi:map")] Draw on map
 </template>
 
 <script setup lang="ts">
 import useMainStore from "~/store/useMainStore";
-import { saveAs } from "file-saver";
+import fileSaver from "file-saver";
 import { Codemirror } from "vue-codemirror";
 import { json } from "@codemirror/lang-json";
 import { EditorView } from "codemirror";
 
+const { saveAs } = fileSaver;
+
 const props = defineProps<{
   title: string;
   property: "geojson" | "wkt";
-  modelValue: string;
 }>();
 
 const emit = defineEmits<{
@@ -52,7 +56,7 @@ const emit = defineEmits<{
 const store = useMainStore();
 const { error } = storeToRefs(store);
 
-const value = useVModel(props, "modelValue");
+const value = defineModel<string>({ required: true });
 const btnDisabled = computed(() => value.value === "");
 
 const { copy, copied } = useClipboard();

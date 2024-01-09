@@ -7,7 +7,7 @@ div(:style="cssStyle")
     :zoom="2",
     ref="mapRef"
   )
-    l-tile-layer(:url='tileURL', :attribution="tileAttribution")
+    l-tile-layer(:url="tileURL", :attribution="tileAttribution")
     l-geo-json(v-if="drawnMap", :geojson="drawnMap")
 </template>
 

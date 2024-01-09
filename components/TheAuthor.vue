@@ -3,9 +3,9 @@
   .row
     .col
       .hstack.gap-2.justify-content-center.flex-wrap
-        div Made by #[nuxt-link(:to="siteLink" target="_blank") Alberto Rico]. 
+        div Made by #[nuxt-link(:to="siteLink", target="_blank") Alberto Rico]. 
         div Source code available at #[nuxt-link(:href="repoLink", target="_blank") #[icon(name="bi:github")] Github]
-        div Found it useful? #[nuxt-link(:to="supportLink") #[icon(name="lucide:coffee")] Support me!]
+        .ms-md-auto Found it useful? #[nuxt-link(:to="supportLink") #[icon(name="lucide:coffee")] Support me!]
 </template>
 
 <script setup lang="ts">

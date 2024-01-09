@@ -6,11 +6,13 @@
   .row.gap-2
     .col
       .vstack.gap-2
-        button.btn.btn-secondary(
+        b-button(
+          variant="secondary",
           @click="store.convertGeoJSONToWkt",
           :disabled="geojson === ''"
         ) GeoJSON to WKT
-        button.btn.btn-secondary(
+        b-button(
+          variant="secondary",
           @click="store.convertWktToGeoJSON",
           :disabled="wkt === ''"
         ) WKT to GeoJSON

@@ -7,34 +7,41 @@
     .container.mb-2(v-show="error.isError")
       .row
         .col
-          .alert.alert-danger.border-danger.mb-1(v-show="error.isError") {{ error.message }}
+          b-alert.border-danger.mb-1(
+            :model-value="error.isError",
+            variant="danger"
+          ) {{ error.message }}
     .container.mb-2
       .row.align-items-center.g-3
         input-text(
-          title="GeoJSON"
-          property="geojson"
-          v-model:modelValue="store.geojson"
+          title="GeoJSON",
+          property="geojson",
+          v-model="store.geojson",
           @load-example="loadGeoJSONExample"
         )
         the-buttons
         input-text(
-          title="Well-Known-Text"
-          property="wkt"
-          v-model:modelValue="store.wkt"
+          title="Well-Known-Text",
+          property="wkt",
+          v-model="store.wkt",
           @load-example="loadWKTExample"
         )
-    div.mb-4(:class="mapParentClass")
+    .mb-4(:class="mapParentClass")
       .row
         .col
-          .card.border-1
-            .card-header
+          b-card.border-1(no-body)
+            b-card-header
               .d-flex.justify-content-between.align-items-center
                 .hstack.gap-2
                   style-toolbar(v-model:style="mapStyle")
-                  div Drawing: #[b {{getDrawnSource}}]
+                  div Drawing: #[b {{ getDrawnSource }}]
                 div
-                  button.btn.btn-secondary.btn-sm(@click="toggleMapSize") #[icon(name="bi:arrows-expand")] Toggle map size
-            .card-body.p-0
+                  b-button(
+                    variant="secondary",
+                    size="sm",
+                    @click="toggleMapSize"
+                  ) #[icon(name="bi:arrows-expand")] Toggle map size
+            b-card-body.p-0
               the-map(:map-style="mapStyle", :height="mapHeight", ref="mapRef")
   footer.mt-auto.py-3.text-center
     the-author
