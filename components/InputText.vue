@@ -37,10 +37,12 @@
 
 <script setup lang="ts">
 import useMainStore from "~/store/useMainStore";
-import { saveAs } from "file-saver";
+import fileSaver from "file-saver";
 import { Codemirror } from "vue-codemirror";
 import { json } from "@codemirror/lang-json";
 import { EditorView } from "codemirror";
+
+const { saveAs } = fileSaver;
 
 const props = defineProps<{
   title: string;
