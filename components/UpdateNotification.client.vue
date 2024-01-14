@@ -16,6 +16,6 @@ watch(
   () => $pwa?.offlineReady,
   () => {
     console.log("ready to work offline");
-  },
+  }
 );
 </script>

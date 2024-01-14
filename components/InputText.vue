@@ -6,14 +6,13 @@
         .hstack.justify-content-between.gap-2.mb-2.align-items-center
           label.input-title.mb-0(:for="inputId", :class="inputClass") {{ title }}
           b-button.p-0(variant="link", @click="() => emit('load-example')") Load example
-        .input-style.border.border-1.mb-2.bg-white
-          codemirror(
-            :id="inputId",
-            :style="{ height: '300px' }",
-            v-model="value",
-            :extensions="extensions"
-          )
-  .row
+        codemirror(
+          :id="inputId",
+          :style="{ height: '300px' }",
+          v-model="value",
+          :extensions="extensions"
+        )
+  .row.mt-2
     .col
       .hstack.gap-2
         b-button.w-100.text-truncate(
@@ -41,6 +40,7 @@ import fileSaver from "file-saver";
 import { Codemirror } from "vue-codemirror";
 import { json } from "@codemirror/lang-json";
 import { EditorView } from "codemirror";
+import { dracula, tomorrow } from "thememirror";
 
 const { saveAs } = fileSaver;
 
@@ -62,14 +62,22 @@ const btnDisabled = computed(() => value.value === "");
 const { copy, copied } = useClipboard();
 
 const isInvalid = computed(
-  () => error.value.isError && error.value.from === props.property,
+  () => error.value.isError && error.value.from === props.property
 );
+
+const colorMode = useColorMode();
 
 const extensions = computed(() => {
   const exts = [EditorView.lineWrapping];
 
   if (props.property === "geojson") {
     exts.push(json());
+  }
+
+  if (colorMode.value === "dark") {
+    exts.push(dracula);
+  } else {
+    exts.push(tomorrow);
   }
 
   return exts;
@@ -84,7 +92,7 @@ function download() {
 
   saveAs(
     new Blob([value.value]),
-    `converted_${new Date().toISOString()}.${fileFormat}`,
+    `converted_${new Date().toISOString()}.${fileFormat}`
   );
 }
 
@@ -95,9 +103,5 @@ const inputId = computed(() => `${props.property}_input`);
 .input-title {
   font-weight: bold;
   font-size: 1.3rem;
-}
-
-.input-style {
-  height: 300px;
 }
 </style>

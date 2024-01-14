@@ -1,21 +1,36 @@
 $font-family-base: "Fira Sans", Helvetica, Arial, sans-serif;
 $font-size-base: 14;
 
-@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import "node_modules/bootstrap/scss/bootstrap.scss";
 
-:root {
-  --iris-1: hsl(243, 65.0%, 99.5%);
-  --iris-2: hsl(240, 100%, 99.0%);
+html[data-bs-theme="light"] {
+  --iris-1: hsl(243, 65%, 99.5%);
+  --iris-2: hsl(240, 100%, 99%);
   --iris-3: hsl(240, 99.9%, 97.7%);
   --iris-4: hsl(240, 93.5%, 95.9%);
   --iris-5: hsl(240, 86.5%, 93.4%);
   --iris-6: hsl(240, 80.2%, 89.8%);
   --iris-7: hsl(239, 75.3%, 84.6%);
   --iris-8: hsl(238, 73.9%, 77.5%);
-  --iris-9: hsl(240, 60.0%, 59.8%);
+  --iris-9: hsl(240, 60%, 59.8%);
   --iris-10: hsl(240, 55.7%, 56.7%);
-  --iris-11: hsl(240, 50.0%, 52.0%);
-  --iris-12: hsl(238, 43.0%, 26.8%);
+  --iris-11: hsl(240, 50%, 52%);
+  --iris-12: hsl(238, 43%, 26.8%);
+}
+
+html[data-bs-theme="dark"] {
+  --iris-1: #13131e;
+  --iris-2: #171625;
+  --iris-3: #202248;
+  --iris-4: #262a65;
+  --iris-5: #303374;
+  --iris-6: #3d3e82;
+  --iris-7: #4a4a95;
+  --iris-8: #5958b1;
+  --iris-9: #5b5bd6;
+  --iris-10: #6e6ade;
+  --iris-11: #b1a9ff;
+  --iris-12: #e0dffe;
 }
 
 body {
@@ -23,7 +38,8 @@ body {
   color: var(--iris-12);
 }
 
-.btn-link, a {
+.btn-link,
+a {
   color: var(--iris-12);
 }
 
@@ -32,7 +48,8 @@ body {
   border-color: var(--iris-6);
   color: var(--iris-12);
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: var(--iris-5);
   }
 }
@@ -50,7 +67,7 @@ label {
 }
 
 .icon {
-  vertical-align: middle; 
+  vertical-align: middle;
   transform: translateY(-5%);
 }
 
@@ -62,10 +79,10 @@ label {
   border-color: var(--iris-6);
 }
 
-.cm-gutters {
-  background-color: var(--iris-3) !important;
+.cm-content {
+  font-family: "Fira Sans", monospace;
 }
 
-.cm-content {
-  font-family: 'Fira Sans', monospace;
+.cm-editor {
+  @extend .border;
 }
