@@ -51,6 +51,7 @@ export default defineNuxtConfig({
     "nuxt3-leaflet",
     "@nuxtjs/google-fonts",
     "@bootstrap-vue-next/nuxt",
+    "@nuxtjs/color-mode",
   ],
   pwa: {
     registerType: "prompt",
@@ -94,5 +95,9 @@ export default defineNuxtConfig({
     families: {
       "Fira Sans": [400, 600, 800],
     },
+  },
+  colorMode: {
+    dataValue: "bs-theme",
+    storageKey: "nuxt-color-mode",
   },
 });

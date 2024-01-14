@@ -6,6 +6,8 @@
         div Made by #[nuxt-link(:to="siteLink", target="_blank") Alberto Rico]. 
         div Source code available at #[nuxt-link(:href="repoLink", target="_blank") #[icon(name="bi:github")] Github]
         .ms-md-auto Found it useful? #[nuxt-link(:to="supportLink") #[icon(name="lucide:coffee")] Support me!]
+        div
+          color-mode
 </template>
 
 <script setup lang="ts">

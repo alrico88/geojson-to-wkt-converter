@@ -59,7 +59,7 @@ const fullMap = ref(false);
 const mapStyle = ref<"color" | "light" | "dark">("color");
 
 const mapParentClass = computed(() =>
-  fullMap.value ? "container-fluid" : "container",
+  fullMap.value ? "container-fluid" : "container"
 );
 const mapHeight = computed(() => (fullMap.value ? 800 : 400));
 
