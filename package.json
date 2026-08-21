@@ -23,8 +23,8 @@
     "@nuxt/ui": "^4.10.0",
     "@pinia/nuxt": "^1.0.2",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
-    "@vueuse/core": "^10.7.1",
-    "@vueuse/nuxt": "^10.7.1",
+    "@vueuse/core": "^14.4.0",
+    "@vueuse/nuxt": "^14.4.0",
     "bbox-helper-functions": "^3.3.0",
     "codemirror": "^6.0.1",
     "file-saver": "^2.0.5",
@@ -53,6 +53,7 @@
     "nuxt": "^4.5.2",
     "prettier": "^3.1.1",
     "pug": "^3.0.4",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vue-tsc": "^3.3.11"
   }
 }

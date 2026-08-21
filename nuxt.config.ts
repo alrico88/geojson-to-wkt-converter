@@ -49,6 +49,11 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxtjs/leaflet",
   ],
+  icon: {
+    clientBundle: {
+      scan: true,
+    },
+  },
   pwa: {
     registerType: "prompt",
     manifest: {
@@ -92,8 +97,8 @@ export default defineNuxtConfig({
       "Fira Sans": [400, 600, 800],
     },
   },
+
   colorMode: {
     preference: "light",
-    dataValue: "theme",
   },
 });

@@ -1,7 +1,13 @@
 import { parseFromWK, convertToWK } from "wkt-parser-helper";
 import { Formatter } from "fracturedjsonjs";
+import { exampleGeoJSON, exampleWKT } from "~/helpers/examples";
 
 const jsonFormatter = new Formatter();
+
+const DRAWN_SOURCE_LABELS = {
+  geojson: "GeoJSON",
+  wkt: "WKT",
+} as const;
 
 export default defineStore("mainStore", () => {
   const geojson = ref("");
@@ -16,16 +22,11 @@ export default defineStore("mainStore", () => {
   const drawnMap = ref(null);
   const drawnSource = ref<null | "geojson" | "wkt">(null);
 
-  const getDrawnSource = computed(() => {
-    switch (drawnSource.value) {
-      case "geojson":
-        return "GeoJSON";
-      case "wkt":
-        return "WKT";
-      default:
-        return "Nothing";
-    }
-  });
+  const drawnSourceLabel = computed(() =>
+    drawnSource.value === null
+      ? "Nothing"
+      : DRAWN_SOURCE_LABELS[drawnSource.value]
+  );
 
   function discardError() {
     error.isError = false;
@@ -45,7 +46,7 @@ export default defineStore("mainStore", () => {
 
       wkt.value = convertToWK(parsed);
     } catch (err) {
-      triggerError("geojson", (err as Error).message);
+      triggerError("geojson", getErrorMessage(err));
     }
   }
 
@@ -61,18 +62,42 @@ export default defineStore("mainStore", () => {
 
       geojson.value = jsonFormatter.Serialize(asGeoJSON) as string;
     } catch (err) {
-      triggerError("wkt", JSON.stringify(err));
+      triggerError("wkt", getErrorMessage(err));
     }
   }
 
   function drawOnMap(element: "geojson" | "wkt") {
-    const value =
-      element === "geojson"
-        ? JSON.parse(geojson.value)
-        : parseFromWK(wkt.value);
+    discardError();
 
-    drawnMap.value = value;
-    drawnSource.value = element;
+    try {
+      const value =
+        element === "geojson"
+          ? JSON.parse(geojson.value)
+          : parseFromWK(wkt.value);
+
+      if (value === null) {
+        throw new Error("Invalid WKT string");
+      }
+
+      drawnMap.value = value;
+      drawnSource.value = element;
+    } catch (err) {
+      triggerError(element, getErrorMessage(err));
+    }
+  }
+
+  function getErrorMessage(err: unknown): string {
+    return err instanceof Error ? err.message : String(err);
+  }
+
+  function loadExample(element: "geojson" | "wkt") {
+    if (element === "geojson") {
+      wkt.value = "";
+      geojson.value = jsonFormatter.Serialize(exampleGeoJSON) as string;
+    } else {
+      wkt.value = exampleWKT;
+      geojson.value = "";
+    }
   }
 
   return {
@@ -81,10 +106,11 @@ export default defineStore("mainStore", () => {
     error,
     drawnMap,
     drawnSource,
+    drawnSourceLabel,
     discardError,
     convertGeoJSONToWkt,
     convertWktToGeoJSON,
     drawOnMap,
-    getDrawnSource,
+    loadExample,
   };
 });

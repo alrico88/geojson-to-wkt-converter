@@ -1,7 +1,8 @@
 <template lang="pug">
-UTabs(
+u-tabs(
   :items="availableStyles",
   :model-value="selectedStyle",
+  :content="false",
   size="xs",
   color="primary",
   @update:model-value="changeStyle"

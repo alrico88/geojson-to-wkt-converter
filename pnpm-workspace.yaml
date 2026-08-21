@@ -2,3 +2,6 @@ allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   vue-demi: true
+minimumReleaseAgeExclude:
+  - '@vue/language-core@3.3.11'
+  - vue-tsc@3.3.11

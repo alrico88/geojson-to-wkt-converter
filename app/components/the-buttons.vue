@@ -1,7 +1,7 @@
 <template lang="pug">
 .flex.flex-col.items-center.gap-3
   span.text-xs.font-semibold.uppercase.tracking-widest.text-dimmed Convert
-  UButton(
+  u-button(
     icon="i-lucide-arrow-right",
     trailing,
     color="primary",
@@ -11,7 +11,7 @@
     :disabled="geojson === ''",
     @click="store.convertGeoJSONToWkt"
   )
-  UButton(
+  u-button(
     icon="i-lucide-arrow-left",
     trailing,
     color="primary",

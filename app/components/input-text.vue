@@ -1,12 +1,12 @@
 <template lang="pug">
-UCard(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
+u-card(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
   template(#header)
     .flex.items-center.justify-between.gap-2.w-full
       label.font-semibold.text-base(
         :for="inputId",
         :class="{ 'text-error': isInvalid }"
       ) {{ title }}
-      UButton(
+      u-button(
         variant="link",
         color="primary",
         size="xs",
@@ -22,7 +22,7 @@ UCard(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
     )
   template(#footer)
     .grid.grid-cols-3.gap-2.w-full
-      UButton(
+      u-button(
         color="neutral",
         variant="subtle",
         block,
@@ -31,7 +31,7 @@ UCard(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         :label="copied ? 'Copied' : 'Copy'",
         @click="copy(value)"
       )
-      UButton(
+      u-button(
         color="neutral",
         variant="subtle",
         block,
@@ -40,7 +40,7 @@ UCard(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         :disabled="btnDisabled",
         @click="download"
       )
-      UButton(
+      u-button(
         color="neutral",
         variant="subtle",
         block,

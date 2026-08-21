@@ -10,14 +10,14 @@
     ) Alberto Rico
   span
     | Source code at
-    ULink(:href="repoLink", target="_blank")
-      UIcon.size-4.align-text-bottom(name="i-lucide-github")
+    u-link(:href="repoLink", target="_blank")
+      u-icon.size-4.align-text-bottom(name="i-lucide-github")
       |
       | GitHub
   span.ml-auto(class="md:ml-0")
     | Found it useful?
-    ULink(:href="supportLink")
-      UIcon.size-4.align-text-bottom(name="i-lucide-coffee")
+    u-link(:href="supportLink")
+      u-icon.size-4.align-text-bottom(name="i-lucide-coffee")
       |
       | Support me!
   color-mode

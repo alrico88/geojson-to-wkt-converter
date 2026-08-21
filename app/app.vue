@@ -1,16 +1,16 @@
 <template lang="pug">
-UApp
+u-app
   .min-h-screen.flex.flex-col.bg-default.text-default
     header.border-b.border-default.bg-elevated
       .mx-auto.max-w-7xl.px-4.py-5.flex.items-center.justify-between.gap-4
         .flex.items-center.gap-3
-          UIcon.size-8.text-primary(name="i-lucide-map-pin")
+          u-icon.size-8.text-primary(name="i-lucide-map-pin")
           h1.text-2xl.font-extrabold.tracking-tight GeoJSON to WKT
-        UBadge(variant="subtle", color="neutral") Online converter
+        u-badge(variant="subtle", color="neutral") Online converter
     main.flex-1
       .mx-auto.max-w-7xl.px-4.py-6.space-y-4
         update-notification.client
-        UAlert(
+        u-alert(
           v-if="error.isError",
           color="error",
           variant="soft",
@@ -24,7 +24,7 @@ UApp
             title="GeoJSON",
             property="geojson",
             v-model="store.geojson",
-            @load-example="loadGeoJSONExample"
+            @load-example="store.loadExample('geojson')"
           )
           .self-center.justify-self-center
             the-buttons
@@ -32,17 +32,17 @@ UApp
             title="Well-Known-Text",
             property="wkt",
             v-model="store.wkt",
-            @load-example="loadWKTExample"
+            @load-example="store.loadExample('wkt')"
           )
-        UCard(:ui="{ body: 'p-0 sm:p-0' }")
+        u-card(:ui="{ body: 'p-0 sm:p-0' }")
           template(#header)
             .flex.flex-wrap.items-center.justify-between.gap-3.w-full
               .flex.items-center.gap-3
                 style-toolbar(v-model:style="mapStyle")
-                span.text-muted.text-sm
+                span.text-muted.text-sm.inline-flex.items-center.gap-1
                   | Drawing:
-                  b.pl-1 {{ getDrawnSource }}
-              UButton(
+                  b {{ drawnSourceLabel }}
+              u-button(
                 size="sm",
                 color="neutral",
                 variant="outline",
@@ -58,11 +58,9 @@ UApp
 
 <script setup lang="ts">
 import useMainStore from "~/store/useMainStore";
-import { exampleGeoJSON, exampleWKT } from "~/helpers/examples";
-import { Formatter } from "fracturedjsonjs";
 
 const store = useMainStore();
-const { getDrawnSource, error } = storeToRefs(store);
+const { drawnSourceLabel, error } = storeToRefs(store);
 
 const fullMap = ref(false);
 const mapStyle = ref<"color" | "light" | "dark">("color");
@@ -81,22 +79,6 @@ function toggleMapSize() {
     }
 
     mapRef.value.reflowMap();
-  });
-}
-
-function loadGeoJSONExample() {
-  const fmt = new Formatter();
-
-  store.$patch({
-    wkt: "",
-    geojson: fmt.Serialize(exampleGeoJSON),
-  });
-}
-
-function loadWKTExample() {
-  store.$patch({
-    wkt: exampleWKT,
-    geojson: "",
   });
 }
 </script>
