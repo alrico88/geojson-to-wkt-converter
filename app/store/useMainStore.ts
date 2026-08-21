@@ -81,6 +81,7 @@ export default defineStore("mainStore", () => {
     error,
     drawnMap,
     drawnSource,
+    discardError,
     convertGeoJSONToWkt,
     convertWktToGeoJSON,
     drawOnMap,

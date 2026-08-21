@@ -1,11 +1,12 @@
 export default defineNuxtConfig({
+  compatibilityDate: "2026-08-22",
   app: {
     head: {
       title: "GeoJSON to WKT online converter",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "theme-color", content: "#737E96" },
+        { name: "theme-color", content: "#2563eb" },
         {
           name: "google-site-verification",
           content: "UZOcaXnekxNx3602Y3bTdmQ76izGiFgKdkMnByPC_PM",
@@ -25,9 +26,6 @@ export default defineNuxtConfig({
             "geojson,wkt,well known text,converter,convert to geojson, convert to wkt, draw geojson, draw wkt",
         },
       ],
-      htmlAttrs: {
-        "data-bs-theme": "light",
-      },
       script: [
         {
           src: "https://stats.alrico.es/script.js",
@@ -37,9 +35,9 @@ export default defineNuxtConfig({
       ],
     },
   },
-  css: ["@/assets/main.scss"],
+  css: ["~/assets/css/main.css"],
   modules: [
-    "nuxt-icon",
+    "@nuxt/ui",
     "@vueuse/nuxt",
     [
       "@pinia/nuxt",
@@ -48,10 +46,8 @@ export default defineNuxtConfig({
       },
     ],
     "@vite-pwa/nuxt",
-    "nuxt3-leaflet",
     "@nuxtjs/google-fonts",
-    "@bootstrap-vue-next/nuxt",
-    "@nuxtjs/color-mode",
+    "@nuxtjs/leaflet",
   ],
   pwa: {
     registerType: "prompt",
@@ -59,7 +55,7 @@ export default defineNuxtConfig({
       name: "GeoJSON to WKT converter",
       description:
         "Progressive Web App to convert between GeoJSON and Well Known Text (WKT) formats",
-      theme_color: "#737E96",
+      theme_color: "#2563eb",
       icons: [
         {
           src: "pwa-192x192.png",
@@ -97,7 +93,7 @@ export default defineNuxtConfig({
     },
   },
   colorMode: {
-    dataValue: "bs-theme",
-    storageKey: "nuxt-color-mode",
+    preference: "light",
+    dataValue: "theme",
   },
 });

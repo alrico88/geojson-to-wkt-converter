@@ -1,6 +1,6 @@
 <template lang="pug">
 div(:style="cssStyle")
-  l-map.w-100(
+  l-map.w-full(
     :zoom-animation="true",
     :options="mapOptions",
     :center="[0, 0]",
