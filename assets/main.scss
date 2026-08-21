@@ -1,7 +1,7 @@
 $font-family-base: "Fira Sans", Helvetica, Arial, sans-serif;
 $font-size-base: 14;
 
-@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap.scss";
 
 html[data-bs-theme="light"] {
   --iris-1: hsl(243, 65%, 99.5%);
