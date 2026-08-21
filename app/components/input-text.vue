@@ -37,7 +37,8 @@ UCard(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         block,
         icon="i-lucide-download",
         label="Save to file",
-        :disabled="btnDisabled"
+        :disabled="btnDisabled",
+        @click="download"
       )
       UButton(
         color="neutral",
