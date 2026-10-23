@@ -1,13 +1,10 @@
 import { geojsonToWkt, wktToGeojson } from "wkt-parser-helper";
 import { Formatter } from "fracturedjsonjs";
+import truncate from "@turf/truncate";
 import type { GeoJSON } from "geojson";
 import { exampleGeoJSON, exampleWKT } from "~/helpers/examples";
 
 const jsonFormatter = new Formatter();
-
-function formatJSON(value: unknown): string {
-  return jsonFormatter.Serialize(value) ?? "";
-}
 
 function getErrorMessage(err: unknown): string {
   return err instanceof Error ? err.message : String(err);
@@ -37,12 +34,30 @@ export default defineStore("mainStore", () => {
     from: null,
   });
 
+  const outputOptions = reactive<OutputOptions>({
+    precision: null,
+    jsonStyle: "pretty",
+  });
+  const lastConversion = ref<InputFormat | null>(null);
+
   const drawnMap = shallowRef<GeoJSON | null>(null);
   const drawnSource = ref<InputFormat | null>(null);
 
   const drawnSourceLabel = computed(() =>
     drawnSource.value === null ? "Nothing" : FORMAT_LABELS[drawnSource.value]
   );
+
+  function formatJSON(value: unknown): string {
+    return outputOptions.jsonStyle === "minified"
+      ? JSON.stringify(value)
+      : (jsonFormatter.Serialize(value) ?? "");
+  }
+
+  function applyPrecision(value: GeoJSON): GeoJSON {
+    return outputOptions.precision === null
+      ? value
+      : truncate(value, { precision: outputOptions.precision });
+  }
 
   function discardError() {
     error.isError = false;
@@ -57,9 +72,10 @@ export default defineStore("mainStore", () => {
 
   function convertGeoJSONToWkt() {
     discardError();
+    lastConversion.value = "geojson";
 
     try {
-      wkt.value = geojsonToWkt(JSON.parse(geojson.value));
+      wkt.value = geojsonToWkt(applyPrecision(JSON.parse(geojson.value)));
     } catch (err) {
       triggerError("geojson", err);
     }
@@ -67,13 +83,23 @@ export default defineStore("mainStore", () => {
 
   function convertWktToGeoJSON() {
     discardError();
+    lastConversion.value = "wkt";
 
     try {
-      geojson.value = formatJSON(parseWkt(wkt.value));
+      geojson.value = formatJSON(applyPrecision(parseWkt(wkt.value)));
     } catch (err) {
       triggerError("wkt", err);
     }
   }
+
+  // Re-run the last conversion so new output options show up right away
+  watch(outputOptions, () => {
+    if (lastConversion.value === "geojson") {
+      convertGeoJSONToWkt();
+    } else if (lastConversion.value === "wkt") {
+      convertWktToGeoJSON();
+    }
+  });
 
   function drawOnMap(element: InputFormat) {
     discardError();
@@ -89,6 +115,7 @@ export default defineStore("mainStore", () => {
 
   function loadExample(element: InputFormat) {
     discardError();
+    lastConversion.value = null;
 
     if (element === "geojson") {
       wkt.value = "";
@@ -103,6 +130,7 @@ export default defineStore("mainStore", () => {
     geojson,
     wkt,
     error,
+    outputOptions,
     drawnMap,
     drawnSource,
     drawnSourceLabel,

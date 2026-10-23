@@ -4,9 +4,13 @@ u-card(:ui="{ body: 'p-0 sm:p-0 overflow-hidden rounded-b-lg' }")
     .flex.flex-wrap.items-center.justify-between.gap-3.w-full
       .flex.items-center.gap-3
         style-toolbar(v-model="mapStyle")
-        span.text-muted.text-sm.inline-flex.items-center.gap-1
-          | Drawing:
-          b.text-default {{ drawnSourceLabel }}
+        u-badge(
+          variant="subtle",
+          color="neutral",
+          icon="i-lucide-pencil-line",
+          :label="`Drawing: ${drawnSourceLabel}`"
+        )
+        geometry-info(v-if="drawnMap", :geojson="drawnMap")
       u-button(
         size="sm",
         color="neutral",
@@ -18,14 +22,13 @@ u-card(:ui="{ body: 'p-0 sm:p-0 overflow-hidden rounded-b-lg' }")
   client-only
     the-map(:map-style="mapStyle", :expanded="expanded")
     template(#fallback)
-      .h-100.flex.items-center.justify-center.text-muted
-        u-icon.size-6.animate-spin(name="i-lucide-loader-circle")
+      u-skeleton.h-100.w-full.rounded-none
 </template>
 
 <script setup lang="ts">
 import useMainStore from "~/store/useMainStore";
 
-const { drawnSourceLabel } = storeToRefs(useMainStore());
+const { drawnMap, drawnSourceLabel } = storeToRefs(useMainStore());
 
 const expanded = ref(false);
 const mapStyle = ref<MapStyle>("color");

@@ -20,3 +20,11 @@ export function downloadText(content: string, filename: string): void {
 
   URL.revokeObjectURL(url);
 }
+
+export type JsonStyle = "pretty" | "minified";
+
+export interface OutputOptions {
+  /** Decimal places to round coordinates to; `null` keeps them untouched */
+  precision: number | null;
+  jsonStyle: JsonStyle;
+}

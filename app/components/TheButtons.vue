@@ -1,6 +1,6 @@
 <template lang="pug">
-.flex.flex-col.items-center.gap-3
-  span.text-xs.font-semibold.uppercase.tracking-widest.text-dimmed Convert
+.flex.flex-col.items-center.gap-3.w-48
+  u-separator(label="Convert")
   u-button(
     icon="i-lucide-arrow-right",
     trailing,
@@ -19,6 +19,8 @@
     :disabled="!wkt.trim()",
     @click="store.convertWktToGeoJSON"
   )
+  u-separator.mt-1(label="Output")
+  output-options
 </template>
 
 <script setup lang="ts">

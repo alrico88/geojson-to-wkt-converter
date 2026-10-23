@@ -23,6 +23,21 @@ importers:
       '@pinia/nuxt':
         specifier: ^1.0.3
         version: 1.0.3(@nuxt/schema@4.6.2)(confbox@0.3.1)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.143.0)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0)))
+      '@turf/area':
+        specifier: ^7.4.0
+        version: 7.4.0
+      '@turf/helpers':
+        specifier: ^7.4.0
+        version: 7.4.0
+      '@turf/length':
+        specifier: ^7.4.0
+        version: 7.4.0
+      '@turf/meta':
+        specifier: ^7.4.0
+        version: 7.4.0
+      '@turf/truncate':
+        specifier: ^7.4.0
+        version: 7.4.0
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -62,7 +77,7 @@ importers:
         version: 1.17.0(@nuxt/schema@4.6.2)(@typescript-eslint/utils@8.72.0(eslint@10.13.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3))(@vue/compiler-sfc@3.5.44)(confbox@0.3.1)(crossws@0.4.12(srvx@1.0.6))(dotenv@17.4.2)(esbuild@0.28.2)(eslint@10.13.0(jiti@2.7.0)(supports-color@10.2.2))(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(oxc-parser@0.143.0)(rolldown@1.2.15)(rollup@4.62.5)(srvx@1.0.6)(supports-color@10.2.2)(typescript@6.0.3)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0)))(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))
       '@nuxt/fonts':
         specifier: ^1.0.1
-        version: 1.0.1(@devframes/agentic@1.2.6)(@nuxt/schema@4.6.2)(cac@7.0.0)(confbox@0.3.1)(db0@0.3.4)(dotenv@17.4.2)(esbuild@0.28.2)(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(jiti@2.7.0)(lightningcss@1.33.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.143.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(srvx@1.0.6)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))
+        version: 1.0.1(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(@nuxt/schema@4.6.2)(cac@7.0.0)(confbox@0.3.1)(db0@0.3.4)(dotenv@17.4.2)(esbuild@0.28.2)(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(jiti@2.7.0)(lightningcss@1.33.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.143.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(srvx@1.0.6)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))
       '@prettier/plugin-pug':
         specifier: ^3.6.0
         version: 3.6.0(prettier@3.9.10)
@@ -2616,14 +2631,29 @@ packages:
     resolution: {integrity: sha512-/67zpWDBLV+oYAEL682s1ktXL0HgqX76f6gaVGkGnVZlBbm1zd0v4Bz8MFF2GGhoX9rvfq3KSQHubFHwa6w6/Q==}
     engines: {node: '>=12'}
 
+  '@turf/area@7.4.0':
+    resolution: {integrity: sha512-B7q5f6QwKIxxbl4/L59lAYA+FF7h2hv6st96PuKue0TGCYGSxAG/lV8LHSPUSOuOrLywN4jytJcKK3vOFBs7Nw==}
+
   '@turf/bbox@7.4.0':
     resolution: {integrity: sha512-yOX9lALc2GmjYUIE99+nRj7eZA7eDtx7Ixu/hrgIo+YqHvL1reaPVTC9rQWMHMm0pH0/WHjzk8uOpAHjptrudQ==}
+
+  '@turf/distance@7.4.0':
+    resolution: {integrity: sha512-ODkopQDG1m/U6Mx7OMmShncaCvneomwX3lZY1CDA7x40bhDdTTRYP/n/6LicZVyIO4/oK+aXkov4NOtWYthA2g==}
 
   '@turf/helpers@7.4.0':
     resolution: {integrity: sha512-7PAwLZqOdRzTI5g9bHvUwlloAXPDH/mlajtryk0tw4ZwGMtmXsAyF4QundsAMfy4u48Fyd3AUqMXY0SMxqJGWg==}
 
+  '@turf/invariant@7.4.0':
+    resolution: {integrity: sha512-OAsc3qdNx+tRqzWmMNFMnVlWWACIqnYqIejZKvb2oKkKPYJJrURPXZ6OdrGD58ljJMolLoqwIZGSx3VndaEjxg==}
+
+  '@turf/length@7.4.0':
+    resolution: {integrity: sha512-vQsJLuL7uy8m6HAMuJJKoiOHYY1de1Hd6mY/fM90qfu2RyIrkoF8J4bRUb72XZNCVnvob/eHpUMdhZeoUhSyfQ==}
+
   '@turf/meta@7.4.0':
     resolution: {integrity: sha512-3cLUvlEyDuSnMSzrjhaLAEiYR8xhbfWyTVQlrlEw40xL81d4KF4PqUWbjTXKpXZStdYbet2GCurl79KMypNw6g==}
+
+  '@turf/truncate@7.4.0':
+    resolution: {integrity: sha512-eTXO62l1mD++mKlhUqLNHGcgCQvhxXJGB/EUL1KSzpVIeMYtgcmItAneWdHW+gEpmHfjeDjBuvtbZWA23r7Eig==}
 
   '@tybys/wasm-util@0.10.4':
     resolution: {integrity: sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A==}
@@ -7800,7 +7830,7 @@ snapshots:
     dependencies:
       '@modelcontextprotocol/client': 2.3.1
       '@modelcontextprotocol/server': 2.3.1
-      devframe: 1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6)
+      devframe: 1.2.6(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(cac@7.0.0)(srvx@1.0.6)
       h3: 2.0.8(crossws@0.4.12(srvx@1.0.6))
       pathe: 2.0.3
     transitivePeerDependencies:
@@ -8056,7 +8086,7 @@ snapshots:
       ansis: 4.4.0
       cac: 7.0.0
       chokidar: 5.0.0
-      devframe: 1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6)
+      devframe: 1.2.6(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(cac@7.0.0)(srvx@1.0.6)
       eslint: 10.13.0(jiti@2.7.0)(supports-color@10.2.2)
       jiti: 2.7.0
       tinyglobby: 0.2.17
@@ -8605,13 +8635,13 @@ snapshots:
       - vite
       - webpack
 
-  '@nuxt/fonts@1.0.1(@devframes/agentic@1.2.6)(@nuxt/schema@4.6.2)(cac@7.0.0)(confbox@0.3.1)(db0@0.3.4)(dotenv@17.4.2)(esbuild@0.28.2)(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(jiti@2.7.0)(lightningcss@1.33.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.143.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(srvx@1.0.6)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))':
+  '@nuxt/fonts@1.0.1(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(@nuxt/schema@4.6.2)(cac@7.0.0)(confbox@0.3.1)(db0@0.3.4)(dotenv@17.4.2)(esbuild@0.28.2)(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(jiti@2.7.0)(lightningcss@1.33.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.143.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(srvx@1.0.6)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))':
     dependencies:
       '@nuxt/kit': 4.6.2(@nuxt/schema@4.6.2)(confbox@0.3.1)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.143.0)(rolldown@1.2.15)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0)))
       defu: 6.1.7
-      devframe: 1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6)
+      devframe: 1.2.6(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(cac@7.0.0)(srvx@1.0.6)
       exsolve: 1.1.3
-      fontless: 1.3.3(devframe@1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6))(esbuild@0.28.2)(jiti@2.7.0)(lightningcss@1.33.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))
+      fontless: 1.3.3(devframe@1.2.6)(esbuild@0.28.2)(jiti@2.7.0)(lightningcss@1.33.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))
       h3: 1.15.11
       magic-regexp: 0.11.2(esbuild@0.28.2)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0))
       nypm: 0.6.11
@@ -9936,10 +9966,24 @@ snapshots:
       magic-string: 0.30.21
       string.prototype.matchall: 4.0.12
 
+  '@turf/area@7.4.0':
+    dependencies:
+      '@turf/helpers': 7.4.0
+      '@turf/meta': 7.4.0
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
+
   '@turf/bbox@7.4.0':
     dependencies:
       '@turf/helpers': 7.4.0
       '@turf/meta': 7.4.0
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
+
+  '@turf/distance@7.4.0':
+    dependencies:
+      '@turf/helpers': 7.4.0
+      '@turf/invariant': 7.4.0
       '@types/geojson': 7946.0.16
       tslib: 2.8.1
 
@@ -9948,9 +9992,30 @@ snapshots:
       '@types/geojson': 7946.0.16
       tslib: 2.8.1
 
+  '@turf/invariant@7.4.0':
+    dependencies:
+      '@turf/helpers': 7.4.0
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
+
+  '@turf/length@7.4.0':
+    dependencies:
+      '@turf/distance': 7.4.0
+      '@turf/helpers': 7.4.0
+      '@turf/meta': 7.4.0
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
+
   '@turf/meta@7.4.0':
     dependencies:
       '@turf/helpers': 7.4.0
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
+
+  '@turf/truncate@7.4.0':
+    dependencies:
+      '@turf/helpers': 7.4.0
+      '@turf/meta': 7.4.0
       '@types/geojson': 7946.0.16
       tslib: 2.8.1
 
@@ -11021,7 +11086,7 @@ snapshots:
 
   devalue@6.0.3: {}
 
-  devframe@1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6):
+  devframe@1.2.6(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(cac@7.0.0)(srvx@1.0.6):
     dependencies:
       crossws: 0.4.12(srvx@1.0.6)
       h3: 2.0.8(crossws@0.4.12(srvx@1.0.6))
@@ -11682,7 +11747,7 @@ snapshots:
       - ioredis
       - uploadthing
 
-  fontless@1.3.3(devframe@1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6))(esbuild@0.28.2)(jiti@2.7.0)(lightningcss@1.33.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0)):
+  fontless@1.3.3(devframe@1.2.6)(esbuild@0.28.2)(jiti@2.7.0)(lightningcss@1.33.0)(postcss@8.5.31)(rolldown@1.2.15)(rollup@4.62.5)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0)):
     dependencies:
       css-tree: 3.2.1
       defu: 6.1.7
@@ -11691,7 +11756,7 @@ snapshots:
       magic-string: 1.4.3
       unifont: 1.0.3
     optionalDependencies:
-      devframe: 1.2.6(@devframes/agentic@1.2.6)(cac@7.0.0)(srvx@1.0.6)
+      devframe: 1.2.6(@devframes/agentic@1.2.6(crossws@0.4.12(srvx@1.0.6))(devframe@1.2.6))(cac@7.0.0)(srvx@1.0.6)
       jiti: 2.7.0
       lightningcss: 1.33.0
       vite: 8.3.5(esbuild@0.28.2)(jiti@2.7.0)(sass@1.103.0)(terser@5.50.0)(yaml@2.9.0)

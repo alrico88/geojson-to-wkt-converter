@@ -59,7 +59,9 @@ export default defineNuxtConfig({
     },
   },
   pwa: {
-    registerType: "prompt",
+    // Activate new versions as soon as they're found so visitors never stay
+    // stuck on an old cached build
+    registerType: "autoUpdate",
     manifest: {
       name: "GeoJSON to WKT converter",
       description:
@@ -83,9 +85,6 @@ export default defineNuxtConfig({
           purpose: "any maskable",
         },
       ],
-    },
-    client: {
-      installPrompt: true,
     },
     workbox: {
       navigateFallback: "/",

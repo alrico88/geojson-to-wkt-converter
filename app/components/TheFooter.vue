@@ -1,13 +1,14 @@
 <template lang="pug">
-.flex.flex-col.items-center.gap-3.text-sm.text-muted(
-  class="sm:flex-row sm:justify-between"
+u-footer.border-t.border-default.bg-elevated(
+  :ui="{ container: 'py-4 lg:py-4' }"
 )
-  p
-    | Made by
-    |
-    u-link.font-medium.text-default(:href="siteLink", target="_blank")
-      | Alberto Rico
-  .flex.items-center.gap-1
+  template(#left)
+    p.text-sm.text-muted
+      | Made by
+      |
+      u-link.font-medium.text-default(:href="siteLink", target="_blank")
+        | Alberto Rico
+  template(#right)
     u-button(
       :to="repoLink",
       target="_blank",
@@ -26,8 +27,6 @@
       variant="ghost",
       size="sm"
     )
-    u-separator.h-5(orientation="vertical")
-    u-color-mode-button(size="sm")
 </template>
 
 <script setup lang="ts">
