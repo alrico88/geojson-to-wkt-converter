@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.css"],
+  // Its "main" entry is UMD; transpiling makes SSR use the ES build
+  build: {
+    transpile: ["@indoorequal/vue-maplibre-gl"],
+  },
   modules: [
     "@nuxt/ui",
     "@vueuse/nuxt",
@@ -46,8 +50,8 @@ export default defineNuxtConfig({
       },
     ],
     "@vite-pwa/nuxt",
-    "@nuxtjs/google-fonts",
-    "@nuxtjs/leaflet",
+    "@nuxt/fonts",
+    "@nuxt/eslint",
   ],
   icon: {
     clientBundle: {
@@ -89,15 +93,11 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
     },
   },
-  appConfig: {
-    buildDate: new Date().toISOString(),
-  },
-  googleFonts: {
-    families: {
-      "Fira Sans": [400, 600, 800],
+  fonts: {
+    defaults: {
+      weights: [400, 600, 800],
     },
   },
-
   colorMode: {
     preference: "light",
   },

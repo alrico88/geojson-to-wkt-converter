@@ -1,82 +1,113 @@
 <template lang="pug">
-div(:style="cssStyle")
-  l-map.w-full(
-    :zoom-animation="true",
-    :options="mapOptions",
-    :center="[0, 0]",
-    :zoom="2",
-    ref="mapRef"
+.w-full.transition-all(:class="expanded ? 'h-200' : 'h-100'")
+  mgl-map(
+    :map-key="MAP_KEY",
+    :map-style="MAP_STYLES[mapStyle].url",
+    :center="INITIAL_CENTER",
+    :zoom="1",
+    @map:load="fitToDrawn"
   )
-    l-tile-layer(:url="tileURL", :attribution="tileAttribution")
-    l-geo-json(v-if="drawnMap", :geojson="drawnMap")
+    mgl-navigation-control
+    mgl-scale-control
+    mgl-geo-json-source(v-if="drawnMap", source-id="drawn", :data="drawnMap")
+      mgl-fill-layer(
+        layer-id="drawn-fill",
+        :filter="polygonFilter",
+        :paint="fillPaint"
+      )
+      mgl-line-layer(
+        layer-id="drawn-line",
+        :filter="lineFilter",
+        :paint="linePaint",
+        :layout="lineLayout"
+      )
+      mgl-circle-layer(
+        layer-id="drawn-point",
+        :filter="pointFilter",
+        :paint="circlePaint"
+      )
 </template>
 
 <script setup lang="ts">
+import {
+  MglCircleLayer,
+  MglFillLayer,
+  MglGeoJsonSource,
+  MglLineLayer,
+  MglMap,
+  MglNavigationControl,
+  MglScaleControl,
+  useMap,
+} from "@indoorequal/vue-maplibre-gl";
 import { getGeoJSONBBox } from "bbox-helper-functions";
-import type { StyleValue } from "vue";
+import type {
+  CircleLayerSpecification,
+  FillLayerSpecification,
+  LineLayerSpecification,
+} from "maplibre-gl";
 import useMainStore from "~/store/useMainStore";
 
-const props = defineProps<{
-  mapStyle: "color" | "light" | "dark";
-  height: number;
+defineProps<{
+  mapStyle: MapStyle;
+  expanded: boolean;
 }>();
+
+const MAP_KEY = "main";
+// Not inline in the template: a new array each render makes MglMap re-center
+const INITIAL_CENTER: [number, number] = [0, 20];
+const DRAW_COLOR = "#2563eb";
+
+function geometryTypeFilter(
+  ...types: string[]
+): ["in", ["geometry-type"], ["literal", string[]]] {
+  const names = types.flatMap((type) => [type, `Multi${type}`]);
+
+  return ["in", ["geometry-type"], ["literal", names]];
+}
+
+const polygonFilter = geometryTypeFilter("Polygon");
+const lineFilter = geometryTypeFilter("LineString", "Polygon");
+const pointFilter = geometryTypeFilter("Point");
+
+const fillPaint: FillLayerSpecification["paint"] = {
+  "fill-color": DRAW_COLOR,
+  "fill-opacity": 0.25,
+};
+const linePaint: LineLayerSpecification["paint"] = {
+  "line-color": DRAW_COLOR,
+  "line-width": 2,
+};
+const lineLayout: LineLayerSpecification["layout"] = {
+  "line-join": "round",
+  "line-cap": "round",
+};
+const circlePaint: CircleLayerSpecification["paint"] = {
+  "circle-color": DRAW_COLOR,
+  "circle-radius": 6,
+  "circle-stroke-color": "#ffffff",
+  "circle-stroke-width": 2,
+};
 
 const store = useMainStore();
 const { drawnMap } = storeToRefs(store);
 
-const mapOptions = {
-  zoomControl: true,
-  attribution: true,
-};
+const mapInstance = useMap(MAP_KEY);
 
-const tileAttribution =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
-
-const cssStyle = computed<StyleValue>(() => ({
-  height: `${props.height}px`,
-  width: "100%",
-}));
-
-const bounds = computed(() => {
-  if (drawnMap.value) {
-    const [minX, minY, maxX, maxY] = getGeoJSONBBox(drawnMap.value);
-
-    return [
-      [minY, minX],
-      [maxY, maxX],
-    ];
-  }
-
-  return null;
-});
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapRef = ref<any>(null);
-
-watch(bounds, (val) => {
-  if (val && mapRef.value) {
-    mapRef.value.leafletObject.fitBounds(val);
-  }
-});
-
-const tileURL = computed(() => {
-  const styles = {
-    color:
-      "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-    light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-    dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-  };
-
-  return styles[props.mapStyle];
-});
-
-function reflowMap() {
-  if (!mapRef.value) {
+function fitToDrawn() {
+  if (!drawnMap.value || !mapInstance.map) {
     return;
   }
 
-  mapRef.value.leafletObject.invalidateSize();
+  const [minX, minY, maxX, maxY] = getGeoJSONBBox(drawnMap.value);
+
+  mapInstance.map.fitBounds(
+    [
+      [minX, minY],
+      [maxX, maxY],
+    ],
+    { padding: 40, maxZoom: 16 }
+  );
 }
 
-defineExpose({ reflowMap });
+watch(drawnMap, fitToDrawn);
 </script>

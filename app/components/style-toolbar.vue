@@ -1,36 +1,19 @@
 <template lang="pug">
 u-tabs(
-  :items="availableStyles",
-  :model-value="selectedStyle",
+  v-model="selectedStyle",
+  :items="items",
   :content="false",
   size="xs",
-  color="primary",
-  @update:model-value="changeStyle"
+  color="primary"
 )
 </template>
 
 <script setup lang="ts">
-const availableStyles = [
-  {
-    label: "Coloured",
-    value: "color",
-    icon: "i-lucide-palette",
-  },
-  {
-    label: "Light",
-    value: "light",
-    icon: "i-lucide-sun",
-  },
-  {
-    label: "Dark",
-    value: "dark",
-    icon: "i-lucide-moon",
-  },
-];
+import type { TabsItem } from "@nuxt/ui";
 
-const selectedStyle = defineModel<string>("style");
+const selectedStyle = defineModel<MapStyle>({ required: true });
 
-function changeStyle(style: string | number) {
-  selectedStyle.value = String(style);
-}
+const items = Object.entries(MAP_STYLES).map(
+  ([value, { label, icon }]): TabsItem => ({ label, icon, value })
+);
 </script>

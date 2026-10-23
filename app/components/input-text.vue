@@ -12,7 +12,7 @@ u-card(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         size="xs",
         icon="i-lucide-sparkles",
         label="Load example",
-        @click="() => emit('load-example')"
+        @click="emit('loadExample')"
       )
   .h-80.overflow-hidden
     codemirror.w-full.h-full(
@@ -26,7 +26,7 @@ u-card(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         color="neutral",
         variant="subtle",
         block,
-        :disabled="btnDisabled",
+        :disabled="isEmpty",
         :icon="copied ? 'i-lucide-check' : 'i-lucide-clipboard'",
         :label="copied ? 'Copied' : 'Copy'",
         @click="copy(value)"
@@ -37,7 +37,7 @@ u-card(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         block,
         icon="i-lucide-download",
         label="Save to file",
-        :disabled="btnDisabled",
+        :disabled="isEmpty",
         @click="download"
       )
       u-button(
@@ -46,8 +46,8 @@ u-card(:ui="{ root: 'h-full flex flex-col', body: 'flex-1 p-0 sm:p-0' }")
         block,
         icon="i-lucide-map",
         label="Draw on map",
-        :disabled="btnDisabled",
-        @click="store.drawOnMap(property)"
+        :disabled="isEmpty",
+        @click="store.drawOnMap(format)"
       )
 </template>
 
@@ -57,63 +57,49 @@ import { Codemirror } from "vue-codemirror";
 import { json } from "@codemirror/lang-json";
 import { EditorView } from "codemirror";
 import { dracula, tomorrow } from "thememirror";
-import fileSaver from "file-saver";
-
-const { saveAs } = fileSaver;
 
 const props = defineProps<{
   title: string;
-  property: "geojson" | "wkt";
+  format: InputFormat;
 }>();
 
 const emit = defineEmits<{
-  "load-example": [];
+  loadExample: [];
 }>();
+
+const value = defineModel<string>({ required: true });
 
 const store = useMainStore();
 const { error } = storeToRefs(store);
 
-const value = defineModel<string>({ required: true });
-const btnDisabled = computed(() => value.value === "");
-
 const { copy, copied } = useClipboard();
-
-const isInvalid = computed(
-  () => error.value.isError && error.value.from === props.property
-);
-
 const colorMode = useColorMode();
 
-const extensions = computed(() => {
-  const exts = [EditorView.lineWrapping];
+const inputId = computed(() => `${props.format}_input`);
+const isEmpty = computed(() => value.value.trim() === "");
+const isInvalid = computed(
+  () => error.value.isError && error.value.from === props.format
+);
 
-  if (props.property === "geojson") {
-    exts.push(json());
-  }
-
-  if (colorMode.value === "dark") {
-    exts.push(dracula);
-  } else {
-    exts.push(tomorrow);
-  }
-
-  return exts;
+// Stretch the content to the full editor height so clicks and file drops
+// work anywhere, not only on the existing lines
+const fillHeight = EditorView.theme({
+  "&": { height: "100%" },
+  ".cm-scroller": { overflow: "auto" },
+  ".cm-content, .cm-gutter": { minHeight: "100%" },
 });
 
-function download() {
-  const fileFormat = props.property === "geojson" ? "geojson" : "txt";
+const extensions = computed(() => [
+  EditorView.lineWrapping,
+  fillHeight,
+  ...(props.format === "geojson" ? [json()] : []),
+  colorMode.value === "dark" ? dracula : tomorrow,
+]);
 
-  saveAs(
-    new Blob([value.value]),
-    `converted_${new Date().toISOString()}.${fileFormat}`
+function download() {
+  downloadText(
+    value.value,
+    `converted_${new Date().toISOString()}.${FORMAT_FILE_EXTENSIONS[props.format]}`
   );
 }
-
-const inputId = computed(() => `${props.property}_input`);
 </script>
-
-<style scoped>
-.cm-editor {
-  height: 100%;
-}
-</style>

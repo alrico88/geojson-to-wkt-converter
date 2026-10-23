@@ -1,7 +1,12 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 @theme static {
   --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Fira Sans", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
+}
+
+.cm-editor {
+  font-family: var(--font-mono);
 }

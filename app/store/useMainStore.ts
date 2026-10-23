@@ -1,52 +1,67 @@
-import { parseFromWK, convertToWK } from "wkt-parser-helper";
+import { geojsonToWkt, wktToGeojson } from "wkt-parser-helper";
 import { Formatter } from "fracturedjsonjs";
+import type { GeoJSON } from "geojson";
 import { exampleGeoJSON, exampleWKT } from "~/helpers/examples";
 
 const jsonFormatter = new Formatter();
 
-const DRAWN_SOURCE_LABELS = {
-  geojson: "GeoJSON",
-  wkt: "WKT",
-} as const;
+function formatJSON(value: unknown): string {
+  return jsonFormatter.Serialize(value) ?? "";
+}
+
+function getErrorMessage(err: unknown): string {
+  return err instanceof Error ? err.message : String(err);
+}
+
+function parseWkt(value: string): GeoJSON {
+  const parsed = wktToGeojson(value.trim());
+
+  if (!parsed) {
+    throw new Error("Invalid WKT string");
+  }
+
+  return parsed;
+}
 
 export default defineStore("mainStore", () => {
   const geojson = ref("");
   const wkt = ref("");
 
-  const error = reactive({
+  const error = reactive<{
+    isError: boolean;
+    message: string;
+    from: InputFormat | null;
+  }>({
     isError: false,
     message: "",
-    from: "",
+    from: null,
   });
 
-  const drawnMap = ref(null);
-  const drawnSource = ref<null | "geojson" | "wkt">(null);
+  const drawnMap = shallowRef<GeoJSON | null>(null);
+  const drawnSource = ref<InputFormat | null>(null);
 
   const drawnSourceLabel = computed(() =>
-    drawnSource.value === null
-      ? "Nothing"
-      : DRAWN_SOURCE_LABELS[drawnSource.value]
+    drawnSource.value === null ? "Nothing" : FORMAT_LABELS[drawnSource.value]
   );
 
   function discardError() {
     error.isError = false;
+    error.from = null;
   }
 
-  function triggerError(from: "geojson" | "wkt", errMessage: string): void {
+  function triggerError(from: InputFormat, err: unknown): void {
     error.isError = true;
     error.from = from;
-    error.message = errMessage;
+    error.message = getErrorMessage(err);
   }
 
   function convertGeoJSONToWkt() {
     discardError();
 
     try {
-      const parsed = JSON.parse(geojson.value);
-
-      wkt.value = convertToWK(parsed);
+      wkt.value = geojsonToWkt(JSON.parse(geojson.value));
     } catch (err) {
-      triggerError("geojson", getErrorMessage(err));
+      triggerError("geojson", err);
     }
   }
 
@@ -54,46 +69,30 @@ export default defineStore("mainStore", () => {
     discardError();
 
     try {
-      const asGeoJSON = parseFromWK(wkt.value);
-
-      if (asGeoJSON === null) {
-        throw new Error("Invalid WKT string");
-      }
-
-      geojson.value = jsonFormatter.Serialize(asGeoJSON) as string;
+      geojson.value = formatJSON(parseWkt(wkt.value));
     } catch (err) {
-      triggerError("wkt", getErrorMessage(err));
+      triggerError("wkt", err);
     }
   }
 
-  function drawOnMap(element: "geojson" | "wkt") {
+  function drawOnMap(element: InputFormat) {
     discardError();
 
     try {
-      const value =
-        element === "geojson"
-          ? JSON.parse(geojson.value)
-          : parseFromWK(wkt.value);
-
-      if (value === null) {
-        throw new Error("Invalid WKT string");
-      }
-
-      drawnMap.value = value;
+      drawnMap.value =
+        element === "geojson" ? JSON.parse(geojson.value) : parseWkt(wkt.value);
       drawnSource.value = element;
     } catch (err) {
-      triggerError(element, getErrorMessage(err));
+      triggerError(element, err);
     }
   }
 
-  function getErrorMessage(err: unknown): string {
-    return err instanceof Error ? err.message : String(err);
-  }
+  function loadExample(element: InputFormat) {
+    discardError();
 
-  function loadExample(element: "geojson" | "wkt") {
     if (element === "geojson") {
       wkt.value = "";
-      geojson.value = jsonFormatter.Serialize(exampleGeoJSON) as string;
+      geojson.value = formatJSON(exampleGeoJSON);
     } else {
       wkt.value = exampleWKT;
       geojson.value = "";

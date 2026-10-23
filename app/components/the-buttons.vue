@@ -5,20 +5,18 @@
     icon="i-lucide-arrow-right",
     trailing,
     color="primary",
-    highlight,
     block,
     label="GeoJSON to WKT",
-    :disabled="geojson === ''",
+    :disabled="!geojson.trim()",
     @click="store.convertGeoJSONToWkt"
   )
   u-button(
     icon="i-lucide-arrow-left",
-    trailing,
     color="primary",
     variant="outline",
     block,
     label="WKT to GeoJSON",
-    :disabled="wkt === ''",
+    :disabled="!wkt.trim()",
     @click="store.convertWktToGeoJSON"
   )
 </template>
